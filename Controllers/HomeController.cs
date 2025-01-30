@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SAML_Test_Application_AzureAD_B2C.Models;
 
@@ -13,6 +14,8 @@ namespace SAML_Test_Application_AzureAD_B2C.Controllers
             _logger = logger;
         }
 
+
+        [Authorize]
         public IActionResult Index()
         {
             return View();
