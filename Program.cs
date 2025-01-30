@@ -9,12 +9,16 @@ using SAML_Test_Application_AzureAD_B2C.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var metadataUri = builder.Configuration["AzureAdB2C:MetadataUri"];
+
 // Bind settings from appsettings.json
 builder.Services.Configure<SamlSettings>(builder.Configuration.GetSection("Saml"));
 builder.Services.Configure<AzureAdB2CSettings>(builder.Configuration.GetSection("AzureAdB2C"));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddHealthChecks();
 
 
 builder.Services.AddSaml2();
@@ -82,6 +86,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.MapHealthChecks("/health");
 
 app.UseAuthentication();
 app.UseAuthorization();

@@ -29,13 +29,23 @@ namespace SAML_Test_Application_AzureAD_B2C.Controllers
         [Route("saml/login")]
         public IActionResult Login()
         {
+
+            //var saml2AuthnRequest = new Saml2AuthnRequest(config)
+            //{
+            //    AssertionConsumerServiceUrl = new Uri(builder.Configuration["Saml:AssertionConsumerServiceUrl"]),
+            //    ForceAuthn = true,
+            //    Destination = new Uri(builder.Configuration["AzureAdB2C:MetadataUri"].Replace("/metadata", "/sso/login"))
+            //};
+
             var binding = new Saml2RedirectBinding();
             var saml2AuthnRequest = new Saml2AuthnRequest(config)
             {
                 AssertionConsumerServiceUrl = new Uri("https://localhost:5001/saml/acs"),
                 ForceAuthn = true,
+               // Destination = new Uri(builder.Configuration["AzureAdB2C:MetadataUri"].Replace("/metadata", "/sso/login"))
             };
             return binding.Bind(saml2AuthnRequest).ToActionResult();
+
         }
 
 
