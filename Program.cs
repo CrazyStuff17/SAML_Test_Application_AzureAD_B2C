@@ -26,8 +26,11 @@ builder.Services.AddScoped<Saml2Configuration>(serviceProvider =>
 {
     var config = new Saml2Configuration
     {
-        Issuer = "https://localhost:5001", // Your app's Entity ID
-        SingleSignOnDestination = new Uri("https://{YourTenant}.b2clogin.com/{YourTenant}.onmicrosoft.com/{YourPolicy}/samlp/sso/login"),
+        //Issuer = "https://localhost:5001", // Your app's Entity ID
+        // hcliamtrainingb2c.onmicrosoft.com
+        Issuer = "https://localhost:44306/Auth/Login?ReturnUrl=%2F",
+        // SingleSignOnDestination = new Uri("https://{YourTenant}.b2clogin.com/{YourTenant}.onmicrosoft.com/{YourPolicy}/samlp/sso/login"),
+        SingleSignOnDestination = new Uri("https://hcliamtrainingb2c.b2clogin.com/hcliamtrainingb2c.onmicrosoft.com/B2C_1A_RAJA_SAML_SIGNUP_SIGNIN/samlp/sso/login"),
         SignatureAlgorithm = Saml2SecurityAlgorithms.RsaSha256Signature,
         CertificateValidationMode = System.ServiceModel.Security.X509CertificateValidationMode.None,
         RevocationMode = System.Security.Cryptography.X509Certificates.X509RevocationMode.NoCheck
@@ -36,7 +39,8 @@ builder.Services.AddScoped<Saml2Configuration>(serviceProvider =>
     // Load Azure AD B2C metadata
     var httpClientFactory = serviceProvider.GetService<IHttpClientFactory>();
     using var httpClient = httpClientFactory.CreateClient();
-    var metadataUri = "https://{YourTenant}.b2clogin.com/{YourTenant}.onmicrosoft.com/{YourPolicy}/samlp/metadata";
+    // var metadataUri = "https://{YourTenant}.b2clogin.com/{YourTenant}.onmicrosoft.com/{YourPolicy}/samlp/metadata";
+    var metadataUri = "https://hcliamtrainingb2c.b2clogin.com/hcliamtrainingb2c.onmicrosoft.com/B2C_1A_RAJA_SAML_SIGNUP_SIGNIN/samlp/metadata";
     var metadataResponse = httpClient.GetAsync(metadataUri).GetAwaiter().GetResult();
     var metadataString = metadataResponse.Content.ReadAsStringAsync().GetAwaiter().GetResult();
 

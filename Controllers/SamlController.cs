@@ -40,7 +40,10 @@ namespace SAML_Test_Application_AzureAD_B2C.Controllers
             var binding = new Saml2RedirectBinding();
             var saml2AuthnRequest = new Saml2AuthnRequest(config)
             {
-                AssertionConsumerServiceUrl = new Uri("https://localhost:5001/saml/acs"),
+                //AssertionConsumerServiceUrl = new Uri("https://localhost:5001/saml/acs"),
+                // https://localhost:44306/Auth/Login?ReturnUrl=%2F
+                // https://samltestapplicationazureadb2-production.up.railway.app/Auth/Login?ReturnUrl=%2F
+                AssertionConsumerServiceUrl = new Uri("https://samltestapplicationazureadb2-production.up.railway.app/Auth/Login?ReturnUrl=%2F"),
                 ForceAuthn = true,
                // Destination = new Uri(builder.Configuration["AzureAdB2C:MetadataUri"].Replace("/metadata", "/sso/login"))
             };
